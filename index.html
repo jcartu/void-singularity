@@ -2209,22 +2209,22 @@ X.restore();
 }
 
 // Stage 3: TRAIL SYSTEM OVERHAUL — ribbon trails for fast entities
-trails=[];
+let ribbonTrails=[];
 function addTrail(x,y,vx,vy,color,width,life){
-trails.push({x,y,vx,vy,color,width,life,maxLife:life||.3,points:[{x,y}]});
+ribbonTrails.push({x,y,vx,vy,color,width,life,maxLife:life||.3,points:[{x,y}]});
 }
 function updTrails(dt){
-for(let i=trails.length-1;i>=0;i--){
-const t=trails[i];
+for(let i=ribbonTrails.length-1;i>=0;i--){
+const t=ribbonTrails[i];
 t.life-=dt;
-if(t.life<=0){trails.splice(i,1);continue}
+if(t.life<=0){ribbonTrails.splice(i,1);continue}
 t.x+=t.vx*dt;t.y+=t.vy*dt;
 t.points.push({x:t.x,y:t.y});
 if(t.points.length>12)t.points.shift();
 }
 }
 function drawTrails(){
-for(const t of trails){
+for(const t of ribbonTrails){
 if(t.points.length<2)continue;
 const a=t.life/t.maxLife;
 X.save();
@@ -2244,7 +2244,6 @@ X.stroke();
 X.restore();
 }
 }
-
 function spPt(x,y,c,n,spd,sz,lf,grav){
 for(let i=0;i<n;i++){
 const a=Math.random()*Math.PI*2;
